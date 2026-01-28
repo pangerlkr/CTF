@@ -172,8 +172,8 @@ export const XssChallenge = () => {
           <div className="mt-3 border-t border-gray-200 pt-3">
             <div className="space-y-3 max-h-48 overflow-y-auto mb-3">
               {comments.map((comment) => {
-                const avatarSrc = comment.author === 'panger__lkr' ? '/panger_lkr.jpeg' :
-                                 comment.author === 'jessie_norman' ? '/jessica_norman.jpeg' :
+                const avatarSrc = comment.author === 'alice_wonder' ? '/jessica_norman.jpeg' :
+                                 comment.author === 'photo_enthusiast' ? '/panger_lkr.jpeg' :
                                  '/logo.png';
                 return (
                   <div key={comment.id} className="flex items-start gap-2">
