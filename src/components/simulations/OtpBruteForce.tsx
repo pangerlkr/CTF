@@ -1,17 +1,73 @@
 import { useState } from 'react';
 import { MessageCircle, AlertCircle, CheckCircle } from 'lucide-react';
 
+interface Country {
+  name: string;
+  code: string;
+}
+
+const countries: Country[] = [
+  { name: 'United States', code: '+1' },
+  { name: 'United Kingdom', code: '+44' },
+  { name: 'Canada', code: '+1' },
+  { name: 'Australia', code: '+61' },
+  { name: 'Germany', code: '+49' },
+  { name: 'France', code: '+33' },
+  { name: 'Italy', code: '+39' },
+  { name: 'Spain', code: '+34' },
+  { name: 'India', code: '+91' },
+  { name: 'China', code: '+86' },
+  { name: 'Japan', code: '+81' },
+  { name: 'South Korea', code: '+82' },
+  { name: 'Brazil', code: '+55' },
+  { name: 'Mexico', code: '+52' },
+  { name: 'Argentina', code: '+54' },
+  { name: 'Russia', code: '+7' },
+  { name: 'South Africa', code: '+27' },
+  { name: 'Nigeria', code: '+234' },
+  { name: 'Egypt', code: '+20' },
+  { name: 'Saudi Arabia', code: '+966' },
+  { name: 'United Arab Emirates', code: '+971' },
+  { name: 'Turkey', code: '+90' },
+  { name: 'Netherlands', code: '+31' },
+  { name: 'Belgium', code: '+32' },
+  { name: 'Switzerland', code: '+41' },
+  { name: 'Sweden', code: '+46' },
+  { name: 'Norway', code: '+47' },
+  { name: 'Denmark', code: '+45' },
+  { name: 'Poland', code: '+48' },
+  { name: 'Indonesia', code: '+62' },
+  { name: 'Malaysia', code: '+60' },
+  { name: 'Singapore', code: '+65' },
+  { name: 'Thailand', code: '+66' },
+  { name: 'Philippines', code: '+63' },
+  { name: 'Vietnam', code: '+84' },
+  { name: 'Pakistan', code: '+92' },
+  { name: 'Bangladesh', code: '+880' },
+  { name: 'New Zealand', code: '+64' },
+  { name: 'Ireland', code: '+353' },
+  { name: 'Portugal', code: '+351' },
+];
+
 export const OtpBruteForce = () => {
   const [step, setStep] = useState<'phone' | 'otp'>('phone');
+  const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0]);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [attempts, setAttempts] = useState(0);
   const correctOtp = '231500';
 
+  const handleCountryChange = (countryName: string) => {
+    const country = countries.find(c => c.name === countryName);
+    if (country) {
+      setSelectedCountry(country);
+    }
+  };
+
   const handlePhoneSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (phoneNumber.length >= 10) {
+    if (phoneNumber.length >= 7) {
       setStep('otp');
       setMessage(null);
     }
@@ -64,21 +120,29 @@ export const OtpBruteForce = () => {
           <form onSubmit={handlePhoneSubmit} className="space-y-6">
             <div>
               <div className="flex gap-3">
-                <select className="px-4 py-3 border-b-2 border-gray-200 focus:border-[#25D366] outline-none text-gray-700 bg-white">
-                  <option>United States</option>
+                <select
+                  value={selectedCountry.name}
+                  onChange={(e) => handleCountryChange(e.target.value)}
+                  className="flex-1 px-4 py-3 border-b-2 border-gray-200 focus:border-[#25D366] outline-none text-gray-700 bg-white cursor-pointer"
+                >
+                  {countries.map((country) => (
+                    <option key={country.name} value={country.name}>
+                      {country.name}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="flex gap-3 mt-4">
                 <input
                   type="text"
-                  value="+1"
+                  value={selectedCountry.code}
                   disabled
-                  className="w-16 px-4 py-3 border-b-2 border-gray-200 text-gray-700 bg-gray-50 text-center"
+                  className="w-20 px-4 py-3 border-b-2 border-gray-200 text-gray-700 bg-gray-50 text-center font-medium"
                 />
                 <input
                   type="tel"
                   value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                  onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 15))}
                   placeholder="Phone number"
                   className="flex-1 px-4 py-3 border-b-2 border-gray-200 focus:border-[#25D366] outline-none text-gray-700"
                   required
@@ -88,7 +152,7 @@ export const OtpBruteForce = () => {
 
             <button
               type="submit"
-              disabled={phoneNumber.length < 10}
+              disabled={phoneNumber.length < 7}
               className="w-full py-3 bg-[#25D366] text-white font-medium rounded-full hover:bg-[#20BD5A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               NEXT
@@ -110,7 +174,7 @@ export const OtpBruteForce = () => {
             <div className="w-20 h-20 bg-[#25D366] rounded-full flex items-center justify-center mb-4">
               <MessageCircle className="w-10 h-10 text-white" strokeWidth={2} />
             </div>
-            <h2 className="text-xl font-light text-gray-800 mb-2">Verify +1 {phoneNumber}</h2>
+            <h2 className="text-xl font-light text-gray-800 mb-2">Verify {selectedCountry.code} {phoneNumber}</h2>
             <button
               onClick={handleEditNumber}
               className="text-[#25D366] text-sm hover:underline"
