@@ -1,11 +1,21 @@
 import { useState } from 'react';
-import { Shield, AlertCircle, CheckCircle } from 'lucide-react';
+import { MessageCircle, AlertCircle, CheckCircle } from 'lucide-react';
 
 export const OtpBruteForce = () => {
+  const [step, setStep] = useState<'phone' | 'otp'>('phone');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [attempts, setAttempts] = useState(0);
   const correctOtp = '231500';
+
+  const handlePhoneSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (phoneNumber.length >= 10) {
+      setStep('otp');
+      setMessage(null);
+    }
+  };
 
   const handleVerify = (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,104 +25,165 @@ export const OtpBruteForce = () => {
     if (otp === correctOtp) {
       setMessage({
         type: 'success',
-        text: `OTP verified successfully after ${attempts + 1} attempts! This system has no rate limiting. Flag: NCG{rate_limiting_prevents_brute_force}`
+        text: `Verified! Flag: NCG{rate_limiting_prevents_brute_force}`
       });
     } else {
       setMessage({
         type: 'error',
-        text: `Invalid OTP. Attempt #${attempts + 1}. No rate limiting detected - you can try again immediately!`
+        text: `Wrong code. Try again (Attempt #${attempts + 1})`
       });
     }
   };
 
+  const handleEditNumber = () => {
+    setStep('phone');
+    setOtp('');
+    setMessage(null);
+  };
+
   return (
-    <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
-      <div className="mb-4">
-        <h3 className="text-lg font-bold text-white mb-2">OTP Verification System</h3>
-        <p className="text-slate-400 text-sm">Enter the 6-digit OTP sent to your device</p>
-      </div>
-
-      <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 mb-4">
-        <div className="flex items-center gap-3 mb-3">
-          <Shield className="w-5 h-5 text-cyan-400" />
-          <span className="text-white font-medium">Security Status</span>
-        </div>
-        <div className="space-y-2 text-sm">
-          <div className="flex items-center justify-between">
-            <span className="text-slate-400">Rate Limiting:</span>
-            <span className="text-red-400 font-medium">DISABLED</span>
+    <div className="bg-white rounded-xl shadow-sm overflow-hidden max-w-md mx-auto">
+      {step === 'phone' ? (
+        <div className="p-8">
+          <div className="flex flex-col items-center mb-8">
+            <div className="w-20 h-20 bg-[#25D366] rounded-full flex items-center justify-center mb-4">
+              <MessageCircle className="w-10 h-10 text-white" strokeWidth={2} />
+            </div>
+            <h2 className="text-2xl font-light text-gray-800 mb-2">WhatsApp</h2>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-slate-400">Max Attempts:</span>
-            <span className="text-red-400 font-medium">UNLIMITED</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-slate-400">Current Attempts:</span>
-            <span className="text-cyan-400 font-bold">{attempts}</span>
-          </div>
-        </div>
-      </div>
 
-      <form onSubmit={handleVerify} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">
-            Enter 6-digit OTP
-          </label>
-          <input
-            type="text"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-            maxLength={6}
-            className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white text-center text-2xl font-mono tracking-widest focus:outline-none focus:border-cyan-500"
-            placeholder="••••••"
-            required
-          />
-        </div>
-
-        {message && (
-          <div className={`p-4 rounded-lg flex items-start gap-3 ${
-            message.type === 'success'
-              ? 'bg-emerald-500/10 border border-emerald-500/20'
-              : 'bg-red-500/10 border border-red-500/20'
-          }`}>
-            {message.type === 'success' ? (
-              <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-            ) : (
-              <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
-            )}
-            <p className={`text-sm ${message.type === 'success' ? 'text-emerald-400' : 'text-red-400'}`}>
-              {message.text}
+          <div className="mb-8 text-center">
+            <p className="text-gray-600 text-sm leading-relaxed mb-1">
+              Verify your phone number
+            </p>
+            <p className="text-gray-500 text-xs leading-relaxed">
+              WhatsApp will send an SMS message to verify your phone number.
             </p>
           </div>
-        )}
 
-        <button
-          type="submit"
-          disabled={otp.length !== 6}
-          className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium rounded-lg hover:from-cyan-400 hover:to-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          Verify OTP
-        </button>
-      </form>
+          <form onSubmit={handlePhoneSubmit} className="space-y-6">
+            <div>
+              <div className="flex gap-3">
+                <select className="px-4 py-3 border-b-2 border-gray-200 focus:border-[#25D366] outline-none text-gray-700 bg-white">
+                  <option>United States</option>
+                </select>
+              </div>
+              <div className="flex gap-3 mt-4">
+                <input
+                  type="text"
+                  value="+1"
+                  disabled
+                  className="w-16 px-4 py-3 border-b-2 border-gray-200 text-gray-700 bg-gray-50 text-center"
+                />
+                <input
+                  type="tel"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                  placeholder="Phone number"
+                  className="flex-1 px-4 py-3 border-b-2 border-gray-200 focus:border-[#25D366] outline-none text-gray-700"
+                  required
+                />
+              </div>
+            </div>
 
-      <div className="mt-4 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
-        <p className="text-yellow-400 text-xs mb-2">
-          <strong>Hint:</strong> This system has no rate limiting on OTP verification attempts.
-        </p>
-        <p className="text-yellow-400 text-xs mb-2">
-          A 6-digit OTP has only 1,000,000 possible combinations (000000-999999).
-        </p>
-        <p className="text-yellow-400 text-xs">
-          You could write a script to brute force all combinations, or try common patterns like 123456, 000000, etc.
-        </p>
-      </div>
+            <button
+              type="submit"
+              disabled={phoneNumber.length < 10}
+              className="w-full py-3 bg-[#25D366] text-white font-medium rounded-full hover:bg-[#20BD5A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              NEXT
+            </button>
+          </form>
 
-      <div className="mt-3 p-3 bg-slate-800 border border-slate-700 rounded-lg">
-        <p className="text-slate-400 text-xs">
-          <strong>In real scenarios:</strong> Systems should implement rate limiting, account lockouts,
-          CAPTCHA challenges, and exponential backoff to prevent brute force attacks.
-        </p>
-      </div>
+          <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <p className="text-yellow-700 text-xs mb-2">
+              <strong>Challenge Hint:</strong> No rate limiting on OTP attempts
+            </p>
+            <p className="text-yellow-700 text-xs">
+              6-digit OTPs have only 1,000,000 combinations. Try common patterns or brute force!
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="p-8">
+          <div className="flex flex-col items-center mb-8">
+            <div className="w-20 h-20 bg-[#25D366] rounded-full flex items-center justify-center mb-4">
+              <MessageCircle className="w-10 h-10 text-white" strokeWidth={2} />
+            </div>
+            <h2 className="text-xl font-light text-gray-800 mb-2">Verify +1 {phoneNumber}</h2>
+            <button
+              onClick={handleEditNumber}
+              className="text-[#25D366] text-sm hover:underline"
+            >
+              Edit number
+            </button>
+          </div>
+
+          <div className="mb-6 text-center">
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              Enter the 6-digit code we sent to your phone
+            </p>
+            <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mb-4">
+              <span>Rate Limiting:</span>
+              <span className="text-red-500 font-semibold">DISABLED</span>
+              <span className="mx-2">•</span>
+              <span>Attempts: {attempts}</span>
+            </div>
+          </div>
+
+          <form onSubmit={handleVerify} className="space-y-6">
+            <div>
+              <input
+                type="text"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                maxLength={6}
+                className="w-full px-4 py-4 border-b-2 border-gray-200 focus:border-[#25D366] outline-none text-gray-700 text-center text-2xl tracking-[0.5em] font-light"
+                placeholder="- - - - - -"
+                autoFocus
+                required
+              />
+            </div>
+
+            {message && (
+              <div className={`p-4 rounded-lg flex items-start gap-3 ${
+                message.type === 'success'
+                  ? 'bg-green-50 border border-green-200'
+                  : 'bg-red-50 border border-red-200'
+              }`}>
+                {message.type === 'success' ? (
+                  <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                ) : (
+                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                )}
+                <p className={`text-sm ${message.type === 'success' ? 'text-green-700' : 'text-red-700'}`}>
+                  {message.text}
+                </p>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={otp.length !== 6}
+              className="w-full py-3 bg-[#25D366] text-white font-medium rounded-full hover:bg-[#20BD5A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              VERIFY
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <button className="text-[#25D366] text-sm hover:underline">
+              Didn't receive code?
+            </button>
+          </div>
+
+          <div className="mt-6 p-3 bg-gray-50 rounded-lg">
+            <p className="text-gray-600 text-xs text-center">
+              <strong>Security Note:</strong> Real systems use rate limiting to prevent brute force attacks
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
