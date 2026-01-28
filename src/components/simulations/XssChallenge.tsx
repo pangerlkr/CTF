@@ -81,8 +81,8 @@ export const XssChallenge = () => {
             rel="noopener noreferrer"
             className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500 p-0.5 hover:opacity-80 transition-opacity"
           >
-            <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-400 to-purple-400"></div>
+            <div className="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
+              <img src="/logo.png" alt="Profile" className="w-full h-full object-cover" />
             </div>
           </a>
           <div>
@@ -171,34 +171,41 @@ export const XssChallenge = () => {
         {showCommentInput && (
           <div className="mt-3 border-t border-gray-200 pt-3">
             <div className="space-y-3 max-h-48 overflow-y-auto mb-3">
-              {comments.map((comment) => (
-                <div key={comment.id} className="flex items-start gap-2">
-                  <a
-                    href="https://instagram.com/nexuscipherguard.india"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-6 h-6 rounded-full bg-gradient-to-br from-pink-400 to-orange-400 flex-shrink-0 hover:opacity-80 transition-opacity"
-                  ></a>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm">
-                      <a
-                        href="https://instagram.com/nexuscipherguard.india"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-semibold text-gray-900 hover:opacity-70 transition-opacity"
-                      >
-                        {comment.author}
-                      </a>{' '}
-                      <span className="text-gray-900 break-words">{comment.content}</span>
-                    </p>
-                    <div className="flex items-center gap-3 mt-1">
-                      <span className="text-xs text-gray-500">{comment.timestamp}</span>
-                      <button className="text-xs text-gray-500 font-semibold hover:text-gray-700">Like</button>
-                      <button className="text-xs text-gray-500 font-semibold hover:text-gray-700">Reply</button>
+              {comments.map((comment) => {
+                const avatarSrc = comment.author === 'panger__lkr' ? '/panger_lkr.jpeg' :
+                                 comment.author === 'jessie_norman' ? '/jessica_norman.jpeg' :
+                                 '/logo.png';
+                return (
+                  <div key={comment.id} className="flex items-start gap-2">
+                    <a
+                      href="https://instagram.com/nexuscipherguard.india"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-6 h-6 rounded-full flex-shrink-0 hover:opacity-80 transition-opacity overflow-hidden"
+                    >
+                      <img src={avatarSrc} alt={comment.author} className="w-full h-full object-cover" />
+                    </a>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm">
+                        <a
+                          href="https://instagram.com/nexuscipherguard.india"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-semibold text-gray-900 hover:opacity-70 transition-opacity"
+                        >
+                          {comment.author}
+                        </a>{' '}
+                        <span className="text-gray-900 break-words">{comment.content}</span>
+                      </p>
+                      <div className="flex items-center gap-3 mt-1">
+                        <span className="text-xs text-gray-500">{comment.timestamp}</span>
+                        <button className="text-xs text-gray-500 font-semibold hover:text-gray-700">Like</button>
+                        <button className="text-xs text-gray-500 font-semibold hover:text-gray-700">Reply</button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {message && (
