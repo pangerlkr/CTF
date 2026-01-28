@@ -12,13 +12,13 @@ export const XssChallenge = () => {
   const [comments, setComments] = useState<Comment[]>([
     {
       id: 1,
-      author: 'alice_wonder',
+      author: 'jessie_norman',
       content: 'Amazing shot! 😍',
       timestamp: '2h'
     },
     {
       id: 2,
-      author: 'photo_enthusiast',
+      author: 'panger__lkr',
       content: 'Love the composition!',
       timestamp: '1h'
     }
@@ -92,9 +92,9 @@ export const XssChallenge = () => {
               rel="noopener noreferrer"
               className="text-sm font-semibold text-gray-900 hover:opacity-70 transition-opacity"
             >
-              techblogger
+              nexuscipherguard.india
             </a>
-            <p className="text-xs text-gray-500">San Francisco, CA</p>
+            <p className="text-xs text-gray-500">Nagaland, India</p>
           </div>
         </div>
         <button className="text-gray-900 hover:text-gray-600">
@@ -152,7 +152,7 @@ export const XssChallenge = () => {
             rel="noopener noreferrer"
             className="font-semibold text-gray-900 hover:opacity-70 transition-opacity"
           >
-            techblogger
+            nexuscipherguard.india
           </a>{' '}
           <span className="text-gray-900">Check out my latest post on web security! Comments are open 🔓</span>
         </div>
