@@ -75,13 +75,25 @@ export const XssChallenge = () => {
     <div className="bg-white border border-gray-300 rounded-lg max-w-[500px] mx-auto shadow-sm">
       <div className="flex items-center justify-between p-3 border-b border-gray-200">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500 p-0.5">
+          <a
+            href="https://instagram.com/nexuscipherguard.india"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500 p-0.5 hover:opacity-80 transition-opacity"
+          >
             <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
               <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-400 to-purple-400"></div>
             </div>
-          </div>
+          </a>
           <div>
-            <p className="text-sm font-semibold text-gray-900">techblogger</p>
+            <a
+              href="https://instagram.com/nexuscipherguard.india"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-semibold text-gray-900 hover:opacity-70 transition-opacity"
+            >
+              techblogger
+            </a>
             <p className="text-xs text-gray-500">San Francisco, CA</p>
           </div>
         </div>
@@ -134,7 +146,14 @@ export const XssChallenge = () => {
         </p>
 
         <div className="text-sm mb-2">
-          <span className="font-semibold text-gray-900">techblogger</span>{' '}
+          <a
+            href="https://instagram.com/nexuscipherguard.india"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-gray-900 hover:opacity-70 transition-opacity"
+          >
+            techblogger
+          </a>{' '}
           <span className="text-gray-900">Check out my latest post on web security! Comments are open 🔓</span>
         </div>
 
@@ -154,10 +173,22 @@ export const XssChallenge = () => {
             <div className="space-y-3 max-h-48 overflow-y-auto mb-3">
               {comments.map((comment) => (
                 <div key={comment.id} className="flex items-start gap-2">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-pink-400 to-orange-400 flex-shrink-0"></div>
+                  <a
+                    href="https://instagram.com/nexuscipherguard.india"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-6 h-6 rounded-full bg-gradient-to-br from-pink-400 to-orange-400 flex-shrink-0 hover:opacity-80 transition-opacity"
+                  ></a>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm">
-                      <span className="font-semibold text-gray-900">{comment.author}</span>{' '}
+                      <a
+                        href="https://instagram.com/nexuscipherguard.india"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-gray-900 hover:opacity-70 transition-opacity"
+                      >
+                        {comment.author}
+                      </a>{' '}
                       <span className="text-gray-900 break-words">{comment.content}</span>
                     </p>
                     <div className="flex items-center gap-3 mt-1">
