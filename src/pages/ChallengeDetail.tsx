@@ -3,17 +3,17 @@ import { Shield, Flag, Download, ExternalLink, CheckCircle, AlertCircle, Trophy 
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, useLocation } from '../hooks/useNavigate';
 import { supabase, Challenge } from '../lib/supabase';
-import { PriceManipulation } from '../components/simulators/PriceManipulation';
-import { SqlInjection } from '../components/simulators/SqlInjection';
-import { SqlInjectionDump } from '../components/simulators/SqlInjectionDump';
-import { IdorChallenge } from '../components/simulators/IdorChallenge';
-import { XssChallenge } from '../components/simulators/XssChallenge';
-import { JwtChallenge } from '../components/simulators/JwtChallenge';
-import { OtpBruteForce } from '../components/simulators/OtpBruteForce';
-import { PaymentBypass } from '../components/simulators/PaymentBypass';
-import { DirectoryTraversal } from '../components/simulators/DirectoryTraversal';
-import { HardcodedApiKeys } from '../components/simulators/HardcodedApiKeys';
-import { FileUploadBypass } from '../components/simulators/FileUploadBypass';
+import { PriceManipulation } from '../components/simulations/PriceManipulation';
+import { SqlInjection } from '../components/simulations/SqlInjection';
+import { SqlInjectionDump } from '../components/simulations/SqlInjectionDump';
+import { IdorChallenge } from '../components/simulations/IdorChallenge';
+import { XssChallenge } from '../components/simulations/XssChallenge';
+import { JwtChallenge } from '../components/simulations/JwtChallenge';
+import { OtpBruteForce } from '../components/simulations/OtpBruteForce';
+import { PaymentBypass } from '../components/simulations/Paymentbypass';
+import { DirectoryTraversal } from '../components/simulations/DirectoryTraversal';
+import { HardcodedApiKeys } from '../components/simulations/HardcodedApiKeys';
+import { FileUploadBypass } from '../components/simulations/FileUploadBypass';
 
 export const ChallengeDetail = () => {
   const { user, profile, refreshProfile } = useAuth();
