@@ -188,7 +188,7 @@ export const XssChallenge = () => {
                     <div className="flex-1 min-w-0">
                       <p className="text-sm">
                         <a
-                          href="https://instagram.com/nexuscipherguard.india"
+                          href="https://instagram.com/panger__lkr"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-semibold text-gray-900 hover:opacity-70 transition-opacity"
