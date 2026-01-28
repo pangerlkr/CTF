@@ -216,40 +216,51 @@ export const SqlInjection = () => {
   }
 
   return (
-    <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
-      <div className="mb-4">
-        <h3 className="text-lg font-bold text-white mb-2">Vulnerable Admin Login Portal</h3>
-        <p className="text-slate-400 text-sm">This login form is vulnerable to SQL injection</p>
+    <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-8 max-w-md mx-auto">
+      <div className="text-center mb-8">
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center shadow-lg">
+            <Lock className="w-7 h-7 text-white" />
+          </div>
+          <div className="text-left">
+            <h1 className="text-2xl font-bold text-gray-900">SecureBank</h1>
+            <p className="text-xs text-blue-600 font-medium">International Banking</p>
+          </div>
+        </div>
+        <div className="border-t border-gray-200 pt-4">
+          <h2 className="text-lg font-semibold text-gray-800">Administrator Portal</h2>
+          <p className="text-sm text-gray-500 mt-1">Secure Access for Authorized Personnel</p>
+        </div>
       </div>
 
-      <form onSubmit={handleLogin} className="space-y-4">
+      <form onSubmit={handleLogin} className="space-y-5">
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Username</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Employee ID</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
-            placeholder="Enter username"
+            className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+            placeholder="Enter your employee ID"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 pr-12 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
-              placeholder="Enter password"
+              className="w-full px-4 py-3 pr-12 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+              placeholder="Enter your password"
               required
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-300 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
               tabIndex={-1}
             >
               {showPassword ? (
@@ -262,17 +273,17 @@ export const SqlInjection = () => {
         </div>
 
         {message && (
-          <div className={`p-4 rounded-lg flex items-start gap-3 ${
+          <div className={`p-4 rounded-md flex items-start gap-3 ${
             message.type === 'success'
-              ? 'bg-emerald-500/10 border border-emerald-500/20'
-              : 'bg-red-500/10 border border-red-500/20'
+              ? 'bg-green-50 border border-green-200'
+              : 'bg-red-50 border border-red-200'
           }`}>
             {message.type === 'success' ? (
-              <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+              <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
             ) : (
-              <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
             )}
-            <p className={`text-sm font-mono ${message.type === 'success' ? 'text-emerald-400' : 'text-red-400'}`}>
+            <p className={`text-sm ${message.type === 'success' ? 'text-green-800' : 'text-red-800'}`}>
               {message.text}
             </p>
           </div>
@@ -280,26 +291,47 @@ export const SqlInjection = () => {
 
         <button
           type="submit"
-          className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium rounded-lg hover:from-cyan-400 hover:to-blue-500 transition-all"
+          className="w-full flex items-center justify-center gap-2 py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-md hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg transition-all"
         >
           <Lock className="w-5 h-5" />
-          Login
+          Sign In Securely
         </button>
       </form>
 
-      <div className="mt-4 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
-        <p className="text-yellow-400 text-xs mb-2">
-          <strong>Hint:</strong> Try SQL injection payloads like: ' OR 1=1-- or ' OR '1'='1
+      <div className="mt-6 text-center">
+        <a href="#" className="text-sm text-blue-600 hover:text-blue-800 font-medium">
+          Forgot your password?
+        </a>
+      </div>
+
+      <div className="mt-8 pt-6 border-t border-gray-200">
+        <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mb-3">
+          <Lock className="w-3 h-3" />
+          <span>256-bit SSL Encryption</span>
+        </div>
+        <p className="text-xs text-gray-400 text-center leading-relaxed">
+          This is a secure connection. All data transmitted is encrypted.
         </p>
-        <p className="text-yellow-400 text-xs">
+      </div>
+
+      <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
+        <p className="text-yellow-800 text-xs mb-2">
+          <strong>Challenge Hint:</strong> Try SQL injection payloads like: ' OR 1=1-- or ' OR '1'='1
+        </p>
+        <p className="text-yellow-700 text-xs">
           Use SQL comments (--) or logical operators (OR) to bypass authentication.
         </p>
       </div>
 
-      <div className="mt-4 p-3 bg-slate-800 border border-slate-700 rounded-lg">
-        <p className="text-slate-400 text-xs">
+      <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-md">
+        <p className="text-blue-800 text-xs">
           <strong>Debug Info:</strong> This simulator accepts common SQL injection payloads. The actual admin password is hidden.
         </p>
+      </div>
+
+      <div className="mt-6 text-center text-xs text-gray-400">
+        <p>© 2024 SecureBank International. All rights reserved.</p>
+        <p className="mt-1">Version 2.8.4 | Terms of Service | Privacy Policy</p>
       </div>
     </div>
   );
