@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { CheckCircle, Lock, Play } from 'lucide-react';
 import { supabase, Challenge, Solve } from '../../../lib/supabase';
 import { useAuth } from '../../../contexts/AuthContext';
-import { useWindows } from '../../../contexts/WindowContext';
+import { useNavigate } from '../../../hooks/useNavigate';
 
 export const ChallengesApp = () => {
   const { user } = useAuth();
-  const { openWindow, closeWindow } = useWindows();
+  const navigate = useNavigate();
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [solves, setSolves] = useState<Solve[]>([]);
   const [loading, setLoading] = useState(true);
@@ -30,42 +30,8 @@ export const ChallengesApp = () => {
 
   const solvedChallengeIds = new Set(solves.map(s => s.challenge_id));
 
-  const openChallengeWindow = async (challenge: Challenge) => {
-    const challengeModule = await import(`../../simulations/${challenge.component_name}.tsx`);
-    const ChallengeComponent = challengeModule[challenge.component_name];
-
-    openWindow({
-      title: challenge.title,
-      icon: <Play className="w-4 h-4" />,
-      content: (
-        <div className="p-6">
-          <div className="mb-4">
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-2xl font-bold">{challenge.title}</h2>
-              <span className={`px-3 py-1 rounded text-sm ${
-                challenge.difficulty === 'easy' ? 'bg-green-100 text-green-800' :
-                challenge.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                'bg-red-100 text-red-800'
-              }`}>
-                {challenge.difficulty}
-              </span>
-            </div>
-            <div className="flex items-center gap-4 text-sm text-gray-600">
-              <span>{challenge.category}</span>
-              <span>{challenge.points} points</span>
-            </div>
-          </div>
-          <div className="prose max-w-none mb-6">
-            <p>{challenge.description}</p>
-          </div>
-          <ChallengeComponent challengeId={challenge.id} />
-        </div>
-      ),
-      x: 100,
-      y: 100,
-      width: 800,
-      height: 600,
-    });
+  const openChallenge = (challenge: Challenge) => {
+    navigate(`/challenge/${challenge.slug}`);
   };
 
   if (loading) {
@@ -82,7 +48,7 @@ export const ChallengesApp = () => {
             className={`p-4 border rounded-lg flex items-center justify-between hover:bg-gray-50 cursor-pointer ${
               solvedChallengeIds.has(challenge.id) ? 'border-green-500 bg-green-50' : 'border-gray-300'
             }`}
-            onDoubleClick={() => openChallengeWindow(challenge)}
+            onDoubleClick={() => openChallenge(challenge)}
           >
             <div className="flex-1">
               <div className="flex items-center gap-2">
@@ -96,7 +62,7 @@ export const ChallengesApp = () => {
               </div>
             </div>
             <button
-              onClick={() => openChallengeWindow(challenge)}
+              onClick={() => openChallenge(challenge)}
               className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
             >
               Open
