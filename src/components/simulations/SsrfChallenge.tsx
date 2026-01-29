@@ -181,7 +181,7 @@ export const SsrfChallenge = () => {
             </div>
             <div>
               <h2 className="text-xl font-bold text-white">External Content Fetcher</h2>
-              <p className="text-sm text-slate-300">TechCorp Internal Tools v2.4.1</p>
+              <p className="text-sm text-slate-300">NEXUSCIPHERGUARD INDIA Internal Tools v2.4.1</p>
             </div>
           </div>
           <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/20 border border-emerald-500/30 rounded-lg">
