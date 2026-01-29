@@ -31,7 +31,7 @@ export const ChallengesApp = () => {
   const solvedChallengeIds = new Set(solves.map(s => s.challenge_id));
 
   const openChallengeWindow = async (challenge: Challenge) => {
-    const challengeModule = await import(`../../simulators/${challenge.component_name}.tsx`);
+    const challengeModule = await import(`../../simulations/${challenge.component_name}.tsx`);
     const ChallengeComponent = challengeModule[challenge.component_name];
 
     openWindow({
