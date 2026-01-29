@@ -16,6 +16,7 @@ import { HardcodedApiKeys } from '../components/simulations/HardcodedApiKeys';
 import { FileUploadBypass } from '../components/simulations/FileUploadBypass';
 import { OpenRedirect } from '../components/simulations/OpenRedirect';
 import { GraphqlIntrospection } from '../components/simulations/GraphqlIntrospection';
+import { ApiRateLimit } from '../components/simulations/ApiRateLimit';
 
 export const ChallengeDetail = () => {
   const { user, profile, refreshProfile } = useAuth();
@@ -172,6 +173,8 @@ export const ChallengeDetail = () => {
         return <OpenRedirect />;
       case 'graphql-introspection':
         return <GraphqlIntrospection />;
+      case 'api-rate-limit-bypass':
+        return <ApiRateLimit />;
       default:
         return null;
     }
