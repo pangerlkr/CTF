@@ -20,6 +20,7 @@ import { GraphqlIntrospection } from '../components/simulations/GraphqlIntrospec
 import { ApiRateLimit } from '../components/simulations/ApiRateLimit';
 import { SsrfChallenge } from '../components/simulations/SsrfChallenge';
 import { CouponStacking } from '../components/simulations/CouponStacking';
+import { RaceConditionPoints } from '../components/simulations/RaceConditionPoints';
 
 export const ChallengeDetail = () => {
   const { user, profile, refreshProfile } = useAuth();
@@ -184,6 +185,8 @@ export const ChallengeDetail = () => {
         return <SsrfChallenge />;
       case 'coupon-stacking':
         return <CouponStacking />;
+      case 'race-condition-points':
+        return <RaceConditionPoints />;
       default:
         return null;
     }
