@@ -23,6 +23,7 @@ export const ApiRateLimit = () => {
   const [newHeaderValue, setNewHeaderValue] = useState('');
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [showHint, setShowHint] = useState(false);
+  const [rateLimitActive, setRateLimitActive] = useState(false);
 
   const MAX_REQUESTS = 5;
   const RESET_TIME = 60;
@@ -33,10 +34,11 @@ export const ApiRateLimit = () => {
         setTimeRemaining(prev => prev - 1);
       }, 1000);
       return () => clearTimeout(timer);
-    } else if (timeRemaining === 0 && requestCount > 0) {
+    } else if (timeRemaining === 0 && rateLimitActive) {
       setRequestCount(0);
+      setRateLimitActive(false);
     }
-  }, [timeRemaining, requestCount]);
+  }, [timeRemaining, rateLimitActive]);
 
   const checkBypassHeaders = (headers: HeaderConfig[]): boolean => {
     const bypassHeaders = [
@@ -69,15 +71,21 @@ export const ApiRateLimit = () => {
           response: 'Rate limit exceeded. Please try again later.',
         };
         setLogs(prev => [newLog, ...prev]);
-        setTimeRemaining(RESET_TIME);
+        if (timeRemaining === 0) {
+          setTimeRemaining(RESET_TIME);
+          setRateLimitActive(true);
+        }
         setLoading(false);
         return;
       }
 
+      let newCount = requestCount;
       if (!hasBypass) {
-        setRequestCount(prev => prev + 1);
-        if (requestCount + 1 === MAX_REQUESTS) {
+        newCount = requestCount + 1;
+        setRequestCount(newCount);
+        if (newCount === MAX_REQUESTS) {
           setTimeRemaining(RESET_TIME);
+          setRateLimitActive(true);
         }
       }
 
@@ -96,7 +104,7 @@ export const ApiRateLimit = () => {
           : JSON.stringify({
               success: true,
               data: 'Public data',
-              remaining: MAX_REQUESTS - requestCount - 1
+              remaining: MAX_REQUESTS - newCount
             }, null, 2),
       };
       setLogs(prev => [newLog, ...prev]);
@@ -119,6 +127,7 @@ export const ApiRateLimit = () => {
   const resetRateLimit = () => {
     setRequestCount(0);
     setTimeRemaining(0);
+    setRateLimitActive(false);
     setLogs([]);
   };
 
