@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Square, Settings, Sun, Volume2, Wifi, Bell } from 'lucide-react';
 import { useWindows } from '../../contexts/WindowContext';
 import { StartMenu } from './StartMenu';
@@ -11,11 +11,76 @@ export const Taskbar = () => {
   const [volume, setVolume] = useState(50);
   const [wifiEnabled, setWifiEnabled] = useState(true);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [showVolumeIndicator, setShowVolumeIndicator] = useState(false);
+  const [notification, setNotification] = useState<string | null>(null);
+
+  useEffect(() => {
+    const overlay = document.getElementById('brightness-overlay');
+    if (overlay) {
+      overlay.style.opacity = String((100 - brightness) / 100);
+    }
+  }, [brightness]);
+
+  useEffect(() => {
+    if (showVolumeIndicator) {
+      const timer = setTimeout(() => setShowVolumeIndicator(false), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [showVolumeIndicator]);
+
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(null), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
+
+  const handleVolumeChange = (newVolume: number) => {
+    setVolume(newVolume);
+    setShowVolumeIndicator(true);
+  };
+
+  const handleWifiToggle = () => {
+    setWifiEnabled(!wifiEnabled);
+    setNotification(`Wi-Fi ${!wifiEnabled ? 'Connected' : 'Disconnected'}`);
+  };
+
+  const handleNotificationToggle = () => {
+    setNotificationsEnabled(!notificationsEnabled);
+    setNotification(`Notifications ${!notificationsEnabled ? 'Enabled' : 'Disabled'}`);
+  };
 
   const visibleWindows = windows.filter(w => !w.isMinimized);
 
   return (
     <>
+      <div
+        id="brightness-overlay"
+        className="fixed inset-0 bg-black pointer-events-none z-30 transition-opacity duration-200"
+        style={{ opacity: (100 - brightness) / 100 }}
+      />
+
+      {showVolumeIndicator && (
+        <div className="fixed top-8 left-1/2 -translate-x-1/2 bg-white rounded-lg shadow-2xl border border-gray-200 p-4 z-50 flex items-center gap-3 animate-fade-in">
+          <Volume2 className="w-5 h-5 text-blue-500" />
+          <div className="flex items-center gap-2">
+            <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-blue-500 transition-all duration-150"
+                style={{ width: `${volume}%` }}
+              />
+            </div>
+            <span className="text-sm font-medium text-gray-700 w-10">{volume}%</span>
+          </div>
+        </div>
+      )}
+
+      {notification && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 bg-gray-900 text-white rounded-lg shadow-2xl px-4 py-2 z-50 text-sm animate-fade-in">
+          {notification}
+        </div>
+      )}
+
       {showStartMenu && <StartMenu onClose={() => setShowStartMenu(false)} />}
 
       {showControlCenter && (
@@ -35,10 +100,10 @@ export const Taskbar = () => {
             <div className="p-4 space-y-4">
               <div className="grid grid-cols-2 gap-2">
                 <button
-                  onClick={() => setWifiEnabled(!wifiEnabled)}
-                  className={`p-3 rounded-lg transition-all ${
+                  onClick={handleWifiToggle}
+                  className={`p-3 rounded-lg transition-all active:scale-95 ${
                     wifiEnabled
-                      ? 'bg-blue-500 text-white'
+                      ? 'bg-blue-500 text-white hover:bg-blue-600'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
@@ -48,10 +113,10 @@ export const Taskbar = () => {
                 </button>
 
                 <button
-                  onClick={() => setNotificationsEnabled(!notificationsEnabled)}
-                  className={`p-3 rounded-lg transition-all ${
+                  onClick={handleNotificationToggle}
+                  className={`p-3 rounded-lg transition-all active:scale-95 ${
                     notificationsEnabled
-                      ? 'bg-blue-500 text-white'
+                      ? 'bg-blue-500 text-white hover:bg-blue-600'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
@@ -74,7 +139,10 @@ export const Taskbar = () => {
                     max="100"
                     value={brightness}
                     onChange={(e) => setBrightness(Number(e.target.value))}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-600"
+                    style={{
+                      background: `linear-gradient(to right, rgb(59 130 246) 0%, rgb(59 130 246) ${brightness}%, rgb(229 231 235) ${brightness}%, rgb(229 231 235) 100%)`
+                    }}
                   />
                 </div>
 
@@ -89,8 +157,11 @@ export const Taskbar = () => {
                     min="0"
                     max="100"
                     value={volume}
-                    onChange={(e) => setVolume(Number(e.target.value))}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                    onChange={(e) => handleVolumeChange(Number(e.target.value))}
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-600"
+                    style={{
+                      background: `linear-gradient(to right, rgb(59 130 246) 0%, rgb(59 130 246) ${volume}%, rgb(229 231 235) ${volume}%, rgb(229 231 235) 100%)`
+                    }}
                   />
                 </div>
               </div>
