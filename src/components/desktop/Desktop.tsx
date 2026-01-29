@@ -1,4 +1,4 @@
-import { Folder, Trophy, User, Shield, Settings } from 'lucide-react';
+import { Folder, Trophy, User, Shield } from 'lucide-react';
 import { useWindows } from '../../contexts/WindowContext';
 import { Window } from './Window';
 import { Taskbar } from './Taskbar';
@@ -6,7 +6,6 @@ import { DesktopIcon } from './DesktopIcon';
 import { ChallengesApp } from './apps/ChallengesApp';
 import { ProfileApp } from './apps/ProfileApp';
 import { LeaderboardApp } from './apps/LeaderboardApp';
-import { ControlCenterApp } from './apps/ControlCenterApp';
 
 export const Desktop = () => {
   const { windows, openWindow } = useWindows();
@@ -47,18 +46,6 @@ export const Desktop = () => {
     });
   };
 
-  const handleOpenControlCenter = () => {
-    openWindow({
-      title: 'Control Center',
-      icon: <Settings className="w-4 h-4" />,
-      content: <ControlCenterApp />,
-      x: 300,
-      y: 150,
-      width: 450,
-      height: 550,
-    });
-  };
-
   return (
     <div
       className="relative w-full h-screen bg-cover bg-center overflow-hidden"
@@ -83,11 +70,6 @@ export const Desktop = () => {
           icon={<Trophy className="w-12 h-12" />}
           label="Leaderboard"
           onDoubleClick={handleOpenLeaderboard}
-        />
-        <DesktopIcon
-          icon={<Settings className="w-12 h-12" />}
-          label="Control Center"
-          onDoubleClick={handleOpenControlCenter}
         />
         <DesktopIcon
           icon={<Shield className="w-12 h-12" />}
