@@ -14,7 +14,7 @@ export const Landing = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-3">
-              <img src="/logo.jpeg" alt="Logo" className="w-8 h-8" />
+              <img src="/logo-nexus.png" alt="Logo" className="w-8 h-8" />
               <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
                 NEXUSCIPHERGUARD INDIA
               </span>
