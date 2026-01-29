@@ -25,18 +25,18 @@ export const DirectoryTraversal = () => {
       if (filename.includes('..') || filename.includes('admin') || filename.includes('etc')) {
         setMessage({
           type: 'success',
-          text: `Path traversal successful! You accessed a restricted file: ${filename}`
+          text: `File downloaded successfully.`
         });
       } else {
         setMessage({
-          type: 'error',
-          text: 'File downloaded successfully. This is an authorized file.'
+          type: 'success',
+          text: 'File downloaded successfully.'
         });
       }
     } else {
       setMessage({
         type: 'error',
-        text: 'File not found. Try different paths with ../ to traverse directories.'
+        text: 'File not found. Please check the filename and try again.'
       });
     }
   };
@@ -114,18 +114,9 @@ export const DirectoryTraversal = () => {
         )}
       </div>
 
-      <div className="mt-4 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
-        <p className="text-yellow-400 text-xs mb-2">
-          <strong>Hint:</strong> The file download endpoint doesn't properly sanitize paths.
-        </p>
-        <p className="text-yellow-400 text-xs">
-          Try using ../ to traverse to parent directories. Look for config files or admin directories!
-        </p>
-      </div>
-
-      <div className="mt-3 p-3 bg-slate-800 border border-slate-700 rounded-lg">
+      <div className="mt-4 p-4 bg-slate-800/50 border border-slate-700 rounded-lg">
         <p className="text-slate-400 text-xs">
-          <strong>Try these paths:</strong> ../config.txt, ../admin/notes.txt, ../../etc/passwd
+          <strong>Note:</strong> Only authorized files can be downloaded. The system validates all file paths for security.
         </p>
       </div>
     </div>
