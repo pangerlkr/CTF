@@ -6,6 +6,7 @@ import { supabase, Solve } from '../../../lib/supabase';
 export const ProfileApp = () => {
   const { user, profile } = useAuth();
   const [solves, setSolves] = useState<Solve[]>([]);
+  const [globalRank, setGlobalRank] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchSolves = async () => {
@@ -15,6 +16,22 @@ export const ProfileApp = () => {
     };
     fetchSolves();
   }, [user]);
+
+  useEffect(() => {
+    const fetchRank = async () => {
+      if (!profile) return;
+
+      const { count } = await supabase
+        .from('profiles')
+        .select('*', { count: 'exact', head: true })
+        .gt('total_points', profile.total_points);
+
+      if (count !== null) {
+        setGlobalRank(count + 1);
+      }
+    };
+    fetchRank();
+  }, [profile]);
 
   return (
     <div className="p-6">
@@ -36,7 +53,7 @@ export const ProfileApp = () => {
         </div>
         <div className="bg-purple-50 p-4 rounded-lg text-center">
           <Target className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-          <div className="text-2xl font-bold text-purple-900">#{profile?.rank || 'N/A'}</div>
+          <div className="text-2xl font-bold text-purple-900">#{globalRank || 'N/A'}</div>
           <div className="text-sm text-gray-600">Global Rank</div>
         </div>
       </div>
