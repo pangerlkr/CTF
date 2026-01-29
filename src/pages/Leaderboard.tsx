@@ -12,52 +12,51 @@ export const Leaderboard = () => {
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
-      try {
-        const { data: profiles, error } = await supabase
-          .from('profiles')
-          .select('id, username, total_points')
-          .order('total_points', { ascending: false })
-          .limit(100);
+      const { data: profiles } = await supabase
+        .from('profiles')
+        .select('username, total_points')
+        .order('total_points', { ascending: false })
+        .limit(100);
 
-        if (error) {
-          console.error('Error fetching leaderboard:', error);
-          setLoading(false);
-          return;
-        }
+      if (profiles) {
+        const enrichedData = await Promise.all(
+          profiles.map(async (profile) => {
+            const { count } = await supabase
+              .from('solves')
+              .select('*', { count: 'exact', head: true })
+              .eq('user_id', (await supabase
+                .from('profiles')
+                .select('id')
+                .eq('username', profile.username)
+                .maybeSingle()
+              ).data?.id || '');
 
-        if (profiles) {
-          const enrichedData = await Promise.all(
-            profiles.map(async (profile) => {
-              const { count } = await supabase
-                .from('solves')
-                .select('*', { count: 'exact', head: true })
-                .eq('user_id', profile.id);
+            const { data: lastSolve } = await supabase
+              .from('solves')
+              .select('solved_at')
+              .eq('user_id', (await supabase
+                .from('profiles')
+                .select('id')
+                .eq('username', profile.username)
+                .maybeSingle()
+              ).data?.id || '')
+              .order('solved_at', { ascending: false })
+              .limit(1)
+              .maybeSingle();
 
-              const { data: lastSolve } = await supabase
-                .from('solves')
-                .select('solved_at')
-                .eq('user_id', profile.id)
-                .order('solved_at', { ascending: false })
-                .limit(1)
-                .maybeSingle();
+            return {
+              username: profile.username,
+              total_points: profile.total_points,
+              solve_count: count || 0,
+              last_solve: lastSolve?.solved_at || null,
+            };
+          })
+        );
 
-              return {
-                username: profile.username,
-                total_points: profile.total_points,
-                solve_count: count || 0,
-                last_solve: lastSolve?.solved_at || null,
-              };
-            })
-          );
-
-          setLeaderboard(enrichedData);
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.error('Error in fetchLeaderboard:', error);
-        setLoading(false);
+        setLeaderboard(enrichedData);
       }
+
+      setLoading(false);
     };
 
     fetchLeaderboard();

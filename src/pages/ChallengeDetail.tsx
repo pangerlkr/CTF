@@ -19,7 +19,6 @@ import { OpenRedirect } from '../components/simulations/OpenRedirect';
 import { GraphqlIntrospection } from '../components/simulations/GraphqlIntrospection';
 import { ApiRateLimit } from '../components/simulations/ApiRateLimit';
 import { SsrfChallenge } from '../components/simulations/SsrfChallenge';
-import { CouponStacking } from '../components/simulations/CouponStacking';
 
 export const ChallengeDetail = () => {
   const { user, profile, refreshProfile } = useAuth();
@@ -182,8 +181,6 @@ export const ChallengeDetail = () => {
         return <ApiRateLimit />;
       case 'ssrf-admin-panel':
         return <SsrfChallenge />;
-      case 'coupon-stacking':
-        return <CouponStacking />;
       default:
         return null;
     }
