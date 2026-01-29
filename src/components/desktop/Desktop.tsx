@@ -1,4 +1,4 @@
-import { Folder, Trophy, User, Info } from 'lucide-react';
+import { Folder, Trophy, User, Shield } from 'lucide-react';
 import { useWindows } from '../../contexts/WindowContext';
 import { Window } from './Window';
 import { Taskbar } from './Taskbar';
@@ -80,9 +80,10 @@ export const Desktop = () => {
 
   return (
     <div
-      className="relative w-full h-screen bg-cover bg-center overflow-hidden"
+      className="relative w-full h-screen bg-center bg-no-repeat overflow-hidden"
       style={{
         backgroundImage: `url('/logo_bg.png')`,
+        backgroundSize: '50%',
       }}
     >
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
@@ -109,12 +110,12 @@ export const Desktop = () => {
         onPositionChange={(pos) => updateIconPosition('leaderboard', pos)}
       />
       <DesktopIcon
-        icon={<Info className="w-12 h-12" />}
+        icon={<Shield className="w-12 h-12" />}
         label="About CTF"
         onDoubleClick={() => {
           openWindow({
             title: 'About NexusCipherGuard',
-            icon: <Info className="w-4 h-4" />,
+            icon: <Shield className="w-4 h-4" />,
             content: (
               <div className="p-6">
                 <h2 className="text-2xl font-bold mb-4">NexusCipherGuard CTF Platform</h2>
