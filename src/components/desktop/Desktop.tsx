@@ -83,7 +83,7 @@ export const Desktop = () => {
       className="relative w-full h-screen bg-center overflow-hidden"
       style={{
         backgroundImage: `url('/logo.jpeg')`,
-        backgroundSize: '90%',
+        backgroundSize: '100%',
         backgroundRepeat: 'no-repeat',
       }}
     >
