@@ -17,6 +17,7 @@ import { FileUploadBypass } from '../components/simulations/FileUploadBypass';
 import { OpenRedirect } from '../components/simulations/OpenRedirect';
 import { GraphqlIntrospection } from '../components/simulations/GraphqlIntrospection';
 import { ApiRateLimit } from '../components/simulations/ApiRateLimit';
+import { SsrfChallenge } from '../components/simulations/SsrfChallenge';
 
 export const ChallengeDetail = () => {
   const { user, profile, refreshProfile } = useAuth();
@@ -175,6 +176,8 @@ export const ChallengeDetail = () => {
         return <GraphqlIntrospection />;
       case 'api-rate-limit-bypass':
         return <ApiRateLimit />;
+      case 'ssrf-admin-panel':
+        return <SsrfChallenge />;
       default:
         return null;
     }
