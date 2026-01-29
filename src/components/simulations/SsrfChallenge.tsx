@@ -22,7 +22,9 @@ export const SsrfChallenge = () => {
     '0.0.0.0',
     'internal-admin',
     'admin.internal',
-    '192.168.1.100',
+    '192.168.',
+    '10.0.',
+    '172.16.',
   ];
 
   const fetchContent = () => {
@@ -40,7 +42,11 @@ export const SsrfChallenge = () => {
       let fetchResult: FetchResult;
 
       if (isInternalAccess) {
-        if (urlLower.includes('/admin') || urlLower.includes(':8080')) {
+        // Check for specific admin endpoints on port 8080
+        const hasAdminPath = urlLower.includes('/admin');
+        const hasPort8080 = urlLower.includes(':8080');
+
+        if (hasAdminPath && hasPort8080) {
           fetchResult = {
             success: true,
             url: url,
@@ -76,12 +82,35 @@ export const SsrfChallenge = () => {
 </html>`,
             timestamp: new Date().toLocaleTimeString(),
           };
+        } else if (hasPort8080) {
+          fetchResult = {
+            success: true,
+            url: url,
+            status: 200,
+            content: `<!DOCTYPE html>
+<html>
+<head>
+    <title>Internal Service</title>
+</head>
+<body>
+    <h1>TechCorp Internal Service</h1>
+    <p>Service is running</p>
+    <p>Available endpoints:</p>
+    <ul>
+        <li>/health</li>
+        <li>/status</li>
+        <li>/admin (restricted)</li>
+    </ul>
+</body>
+</html>`,
+            timestamp: new Date().toLocaleTimeString(),
+          };
         } else {
           fetchResult = {
             success: false,
             url: url,
-            status: 403,
-            error: 'Access to internal network detected but resource not found',
+            status: 404,
+            error: 'Resource not found',
             timestamp: new Date().toLocaleTimeString(),
           };
         }
@@ -137,9 +166,9 @@ export const SsrfChallenge = () => {
 
   const exampleUrls = [
     'https://example.com',
+    'https://wikipedia.org',
+    'https://github.com',
     'https://api.github.com/users/github',
-    'http://localhost:8080/admin',
-    'http://127.0.0.1:8080/admin',
   ];
 
   return (
@@ -307,21 +336,33 @@ export const SsrfChallenge = () => {
             </div>
           </div>
 
+          <div className="p-4 bg-slate-800 border border-slate-700 rounded-lg">
+            <div className="flex items-center gap-2 mb-3">
+              <Shield className="w-4 h-4 text-slate-400" />
+              <h3 className="text-sm font-medium text-white">Tool Information</h3>
+            </div>
+            <div className="space-y-2 text-xs text-slate-300">
+              <p><strong className="text-slate-200">Purpose:</strong> Fetch and preview external web content</p>
+              <p><strong className="text-slate-200">Access:</strong> Internal employees only</p>
+              <p><strong className="text-slate-200">Network:</strong> Connected to corporate network</p>
+            </div>
+          </div>
+
           <div className="p-4 bg-yellow-950/30 border border-yellow-800/50 rounded-lg">
             <div className="flex items-start gap-2 mb-2">
               <AlertCircle className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />
-              <p className="text-yellow-200 text-xs font-medium">Challenge Hint</p>
+              <p className="text-yellow-200 text-xs font-medium">Security Note</p>
             </div>
             <p className="text-yellow-300/90 text-xs leading-relaxed">
-              SSRF vulnerabilities occur when an application fetches remote resources without validating the URL.
-              Try accessing internal network resources that shouldn't be publicly accessible.
+              This tool validates all external URLs before fetching. Only public websites are accessible.
+              Internal network access is restricted for security purposes.
             </p>
           </div>
 
           <div className="p-4 bg-blue-950/30 border border-blue-800/50 rounded-lg">
             <p className="text-blue-300 text-xs leading-relaxed">
-              <span className="font-semibold text-blue-200">Tip:</span> Internal services often run on localhost
-              or private IP addresses. They may use common ports like 8080, 8000, or 3000.
+              <span className="font-semibold text-blue-200">Objective:</span> Find a way to access the internal
+              admin panel that should not be reachable from this tool. The admin panel contains sensitive information.
             </p>
           </div>
 
