@@ -15,6 +15,7 @@ import { DirectoryTraversal } from '../components/simulations/DirectoryTraversal
 import { HardcodedApiKeys } from '../components/simulations/HardcodedApiKeys';
 import { FileUploadBypass } from '../components/simulations/FileUploadBypass';
 import { OpenRedirect } from '../components/simulations/OpenRedirect';
+import { GraphqlIntrospection } from '../components/simulations/GraphqlIntrospection';
 
 export const ChallengeDetail = () => {
   const { user, profile, refreshProfile } = useAuth();
@@ -169,6 +170,8 @@ export const ChallengeDetail = () => {
         return <FileUploadBypass />;
       case 'open-redirect':
         return <OpenRedirect />;
+      case 'graphql-introspection':
+        return <GraphqlIntrospection />;
       default:
         return null;
     }
