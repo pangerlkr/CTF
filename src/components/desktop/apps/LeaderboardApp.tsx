@@ -5,7 +5,6 @@ import { supabase } from '../../../lib/supabase';
 interface LeaderboardEntry {
   username: string;
   total_points: number;
-  rank: number;
 }
 
 export const LeaderboardApp = () => {
@@ -16,7 +15,7 @@ export const LeaderboardApp = () => {
     const fetchLeaderboard = async () => {
       const { data } = await supabase
         .from('profiles')
-        .select('username, total_points, rank')
+        .select('username, total_points')
         .order('total_points', { ascending: false })
         .limit(100);
 
