@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Shield, Trophy, Medal, Crown } from 'lucide-react';
+import { Trophy, Medal, Crown } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from '../hooks/useNavigate';
 import { supabase, LeaderboardEntry } from '../lib/supabase';
@@ -86,7 +86,6 @@ export const Leaderboard = () => {
               onClick={() => navigate(user ? '/dashboard' : '/')}
               className="flex items-center gap-3"
             >
-              <Shield className="w-8 h-8 text-cyan-400" />
               <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
                 NEXUSCIPHERGUARD
               </span>

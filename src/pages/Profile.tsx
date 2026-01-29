@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Shield, User, Trophy, CheckCircle, Calendar } from 'lucide-react';
+import { User, Trophy, CheckCircle, Calendar } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from '../hooks/useNavigate';
 import { supabase, Challenge, Solve } from '../lib/supabase';
@@ -55,7 +55,6 @@ export const Profile = () => {
               onClick={() => navigate('/dashboard')}
               className="flex items-center gap-3"
             >
-              <Shield className="w-8 h-8 text-cyan-400" />
               <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
                 NEXUSCIPHERGUARD
               </span>

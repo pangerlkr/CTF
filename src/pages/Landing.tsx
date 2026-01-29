@@ -1,4 +1,4 @@
-import { Shield, Target, Trophy, Users } from 'lucide-react';
+import { Target, Trophy, Users } from 'lucide-react';
 import { useNavigate } from '../hooks/useNavigate';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -105,7 +105,7 @@ export const Landing = () => {
 
             <div className="bg-slate-800/50 backdrop-blur-sm border border-blue-500/20 rounded-xl p-6 hover:border-blue-400/50 transition-all duration-200 group">
               <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
-                <Shield className="w-6 h-6 text-blue-400" />
+                <Target className="w-6 h-6 text-blue-400" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Safe Environment</h3>
               <p className="text-slate-400">Practice on sandboxed vulnerable applications without risk</p>

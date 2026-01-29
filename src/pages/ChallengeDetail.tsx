@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Shield, Flag, Download, ExternalLink, CheckCircle, AlertCircle, Trophy } from 'lucide-react';
+import { Flag, Download, ExternalLink, CheckCircle, AlertCircle, Trophy } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, useLocation } from '../hooks/useNavigate';
 import { supabase, Challenge } from '../lib/supabase';
@@ -200,7 +200,6 @@ export const ChallengeDetail = () => {
               onClick={() => navigate('/dashboard')}
               className="flex items-center gap-3"
             >
-              <Shield className="w-8 h-8 text-cyan-400" />
               <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
                 NEXUSCIPHERGUARD
               </span>

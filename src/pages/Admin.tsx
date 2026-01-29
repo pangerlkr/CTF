@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Shield, Plus, Edit2, Trash2, Save, X } from 'lucide-react';
+import { Plus, Edit2, Trash2, Save, X } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from '../hooks/useNavigate';
 import { supabase, Challenge } from '../lib/supabase';
@@ -123,7 +123,6 @@ export const Admin = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-3">
-              <Shield className="w-8 h-8 text-purple-400" />
               <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">
                 Admin Panel
               </span>

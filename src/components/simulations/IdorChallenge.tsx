@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { User, DollarSign, AlertCircle, CheckCircle, Shield } from 'lucide-react';
+import { User, DollarSign, AlertCircle, CheckCircle } from 'lucide-react';
 
 type Account = {
   id: number;
@@ -145,7 +145,6 @@ export const IdorChallenge = () => {
             <h3 className="text-lg font-bold text-white mb-2">SecureBank Account Portal v2.0</h3>
             <p className="text-slate-400 text-sm">Secure account viewing with enhanced protection</p>
           </div>
-          <Shield className="w-8 h-8 text-emerald-400" />
         </div>
       </div>
 

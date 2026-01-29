@@ -1,4 +1,4 @@
-import { LogOut, User, Trophy, Shield, Target, Settings } from 'lucide-react';
+import { LogOut, User, Trophy, Target, Settings } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from '../../hooks/useNavigate';
 
@@ -17,7 +17,7 @@ export const StartMenu = ({ onClose }: StartMenuProps) => {
   };
 
   const menuItems = [
-    { icon: <Shield className="w-5 h-5" />, label: 'Challenges', onClick: () => { navigate('/challenges'); onClose(); } },
+    { icon: <Target className="w-5 h-5" />, label: 'Challenges', onClick: () => { navigate('/challenges'); onClose(); } },
     { icon: <Trophy className="w-5 h-5" />, label: 'Leaderboard', onClick: () => { navigate('/leaderboard'); onClose(); } },
     { icon: <User className="w-5 h-5" />, label: 'Profile', onClick: () => { navigate('/profile'); onClose(); } },
   ];

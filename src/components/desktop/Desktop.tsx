@@ -1,4 +1,4 @@
-import { Folder, Trophy, User, Shield } from 'lucide-react';
+import { Folder, Trophy, User, Info } from 'lucide-react';
 import { useWindows } from '../../contexts/WindowContext';
 import { Window } from './Window';
 import { Taskbar } from './Taskbar';
@@ -109,12 +109,12 @@ export const Desktop = () => {
         onPositionChange={(pos) => updateIconPosition('leaderboard', pos)}
       />
       <DesktopIcon
-        icon={<Shield className="w-12 h-12" />}
+        icon={<Info className="w-12 h-12" />}
         label="About CTF"
         onDoubleClick={() => {
           openWindow({
             title: 'About NexusCipherGuard',
-            icon: <Shield className="w-4 h-4" />,
+            icon: <Info className="w-4 h-4" />,
             content: (
               <div className="p-6">
                 <h2 className="text-2xl font-bold mb-4">NexusCipherGuard CTF Platform</h2>

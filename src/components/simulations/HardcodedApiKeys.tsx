@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Shield, CheckCircle, User, Mail, Calendar, MapPin } from 'lucide-react';
+import { CheckCircle, User, Mail, Calendar, MapPin } from 'lucide-react';
 
 interface UserData {
   id: string;
@@ -63,7 +63,6 @@ export const HardcodedApiKeys = () => {
   return (
     <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-6">
       <div className="flex items-center gap-3 mb-6">
-        <Shield className="w-6 h-6 text-cyan-400" />
         <h3 className="text-xl font-bold text-white">SecureApp Dashboard v2.0</h3>
       </div>
 

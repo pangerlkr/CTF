@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Shield, Mail, Lock, User, AlertCircle, CheckCircle } from 'lucide-react';
+import { Mail, Lock, User, AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from '../hooks/useNavigate';
 
@@ -57,9 +57,6 @@ export const Register = () => {
       <div className="relative z-10 w-full max-w-md">
         <div className="bg-slate-800/50 backdrop-blur-sm border border-cyan-500/20 rounded-2xl p-8 shadow-2xl">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-cyan-500/10 rounded-xl mb-4">
-              <Shield className="w-8 h-8 text-cyan-400" />
-            </div>
             <h2 className="text-3xl font-bold text-white mb-2">Create Account</h2>
             <p className="text-slate-400">Join the cybersecurity training platform</p>
           </div>

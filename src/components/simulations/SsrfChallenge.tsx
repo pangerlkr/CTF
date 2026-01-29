@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Globe, Send, AlertCircle, CheckCircle, Shield, Lock, Server } from 'lucide-react';
+import { Globe, Send, AlertCircle, CheckCircle, Lock, Server } from 'lucide-react';
 
 interface FetchResult {
   success: boolean;
@@ -185,7 +185,7 @@ export const SsrfChallenge = () => {
             </div>
           </div>
           <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/20 border border-emerald-500/30 rounded-lg">
-            <Shield className="w-4 h-4 text-emerald-400" />
+            <Lock className="w-4 h-4 text-emerald-400" />
             <span className="text-xs text-emerald-300 font-medium">Internal Network</span>
           </div>
         </div>
@@ -338,7 +338,7 @@ export const SsrfChallenge = () => {
 
           <div className="p-4 bg-slate-800 border border-slate-700 rounded-lg">
             <div className="flex items-center gap-2 mb-3">
-              <Shield className="w-4 h-4 text-slate-400" />
+              <Server className="w-4 h-4 text-slate-400" />
               <h3 className="text-sm font-medium text-white">Tool Information</h3>
             </div>
             <div className="space-y-2 text-xs text-slate-300">
