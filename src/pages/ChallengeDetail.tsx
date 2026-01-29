@@ -14,6 +14,7 @@ import { PaymentBypass } from '../components/simulations/Paymentbypass';
 import { DirectoryTraversal } from '../components/simulations/DirectoryTraversal';
 import { HardcodedApiKeys } from '../components/simulations/HardcodedApiKeys';
 import { FileUploadBypass } from '../components/simulations/FileUploadBypass';
+import { OpenRedirect } from '../components/simulations/OpenRedirect';
 
 export const ChallengeDetail = () => {
   const { user, profile, refreshProfile } = useAuth();
@@ -166,6 +167,8 @@ export const ChallengeDetail = () => {
         return <HardcodedApiKeys />;
       case 'file-upload-bypass':
         return <FileUploadBypass />;
+      case 'open-redirect':
+        return <OpenRedirect />;
       default:
         return null;
     }
