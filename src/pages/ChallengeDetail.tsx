@@ -11,6 +11,7 @@ import { XssChallenge } from '../components/simulations/XssChallenge';
 import { JwtChallenge } from '../components/simulations/JwtChallenge';
 import { OtpBruteForce } from '../components/simulations/OtpBruteForce';
 import { PaymentBypass } from '../components/simulations/Paymentbypass';
+import { UnlimitedCashback } from '../components/simulations/UnlimitedCashback';
 import { DirectoryTraversal } from '../components/simulations/DirectoryTraversal';
 import { HardcodedApiKeys } from '../components/simulations/HardcodedApiKeys';
 import { FileUploadBypass } from '../components/simulations/FileUploadBypass';
@@ -163,8 +164,9 @@ export const ChallengeDetail = () => {
       case 'otp-brute-force':
         return <OtpBruteForce />;
       case 'unauthorized-payment-bypass':
-      case 'unlimited-cashback':
         return <PaymentBypass />;
+      case 'unlimited-cashback':
+        return <UnlimitedCashback />;
       case 'directory-traversal':
         return <DirectoryTraversal />;
       case 'hardcoded-api-keys':
