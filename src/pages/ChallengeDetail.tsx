@@ -163,6 +163,7 @@ export const ChallengeDetail = () => {
       case 'otp-brute-force':
         return <OtpBruteForce />;
       case 'unauthorized-payment-bypass':
+      case 'unlimited-cashback':
         return <PaymentBypass />;
       case 'directory-traversal':
         return <DirectoryTraversal />;
