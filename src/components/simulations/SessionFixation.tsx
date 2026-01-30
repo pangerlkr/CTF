@@ -146,7 +146,7 @@ export const SessionFixation = () => {
   };
 
   const renderLogin = () => (
-    <div className="max-w-sm mx-auto mt-12">
+    <div className="w-full max-w-sm mx-auto py-8">
       <div className="bg-white border border-slate-300 rounded-lg p-10 shadow-sm">
         <div className="text-center mb-8">
           <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-transparent bg-clip-text mb-2">
@@ -224,8 +224,8 @@ export const SessionFixation = () => {
   );
 
   const renderFeed = () => (
-    <div className="max-w-lg mx-auto">
-      <div className="bg-white border-b border-slate-300 px-4 py-3 sticky top-0 z-10 flex items-center justify-between">
+    <div className="w-full max-w-lg mx-auto">
+      <div className="bg-white border-b border-slate-300 px-4 py-3 flex items-center justify-between">
         <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-transparent bg-clip-text">
           Nexusgram
         </div>
@@ -251,7 +251,7 @@ export const SessionFixation = () => {
         </div>
       )}
 
-      <div className="mt-4 space-y-6 pb-20">
+      <div className="mt-4 space-y-6 pb-4">
         {posts.map(post => (
           <div key={post.id} className="bg-white border border-slate-300 rounded-lg">
             <div className="flex items-center justify-between px-4 py-3">
@@ -311,7 +311,7 @@ export const SessionFixation = () => {
         ))}
       </div>
 
-      <div className="bg-white border-t border-slate-300 fixed bottom-0 left-0 right-0 px-4 py-2 flex justify-around max-w-lg mx-auto">
+      <div className="bg-white border-t border-slate-300 px-4 py-3 flex justify-around mt-4">
         <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
           <Home className="w-6 h-6" />
         </button>
@@ -338,8 +338,8 @@ export const SessionFixation = () => {
     const canView = !viewingProfile.isPrivate || isOwnProfile;
 
     return (
-      <div className="max-w-lg mx-auto">
-        <div className="bg-white border-b border-slate-300 px-4 py-3 sticky top-0 z-10 flex items-center justify-between">
+      <div className="w-full max-w-lg mx-auto">
+        <div className="bg-white border-b border-slate-300 px-4 py-3 flex items-center justify-between">
           <button
             onClick={() => setView('feed')}
             className="text-slate-600 hover:text-slate-900"
