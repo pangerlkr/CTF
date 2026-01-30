@@ -22,7 +22,6 @@ import { SsrfChallenge } from '../components/simulations/SsrfChallenge';
 import { CouponStacking } from '../components/simulations/CouponStacking';
 import { RaceConditionPoints } from '../components/simulations/RaceConditionPoints';
 import { SessionFixation } from '../components/simulations/SessionFixation';
-import { HiddenAdminPanel } from '../components/simulations/HiddenAdminPanel';
 
 export const ChallengeDetail = () => {
   const { user, profile, refreshProfile } = useAuth();
@@ -191,8 +190,6 @@ export const ChallengeDetail = () => {
         return <RaceConditionPoints />;
       case 'session-fixation':
         return <SessionFixation />;
-      case 'hidden-admin-css':
-        return <HiddenAdminPanel />;
       default:
         return null;
     }
