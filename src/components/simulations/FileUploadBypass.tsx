@@ -8,7 +8,14 @@ interface UploadedFile {
   uploadedAt: string;
   type: string;
   icon: React.ReactNode;
+  previewUrl?: string;
 }
+
+const FILE_PREVIEW_MAP: Record<string, string> = {
+  'Summer_Vacation_2023.jpg': '/summer-vacation.jpeg',
+  'Family_Photo.png': '/family.jpeg',
+  'Project_Proposal.pdf': '/project-proposal.pdf'
+};
 
 export const FileUploadBypass = () => {
   const [files, setFiles] = useState<UploadedFile[]>([
@@ -18,7 +25,8 @@ export const FileUploadBypass = () => {
       size: '2.4 MB',
       uploadedAt: 'Jan 15, 2024',
       type: 'image',
-      icon: <Image className="w-5 h-5" />
+      icon: <Image className="w-5 h-5" />,
+      previewUrl: '/summer-vacation.jpeg'
     },
     {
       id: '2',
@@ -26,7 +34,8 @@ export const FileUploadBypass = () => {
       size: '856 KB',
       uploadedAt: 'Jan 12, 2024',
       type: 'document',
-      icon: <FileText className="w-5 h-5" />
+      icon: <FileText className="w-5 h-5" />,
+      previewUrl: '/project-proposal.pdf'
     },
     {
       id: '3',
@@ -34,13 +43,15 @@ export const FileUploadBypass = () => {
       size: '1.8 MB',
       uploadedAt: 'Jan 10, 2024',
       type: 'image',
-      icon: <Image className="w-5 h-5" />
+      icon: <Image className="w-5 h-5" />,
+      previewUrl: '/family.jpeg'
     }
   ]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [dragOver, setDragOver] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [previewFile, setPreviewFile] = useState<UploadedFile | null>(null);
 
   const handleFileUpload = async (file: File) => {
     setUploading(true);
@@ -110,8 +121,49 @@ export const FileUploadBypass = () => {
     e.target.value = '';
   };
 
+  const handleFileClick = (file: UploadedFile) => {
+    if (file.previewUrl) {
+      setPreviewFile(file);
+    }
+  };
+
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <>
+      {/* Preview Modal */}
+      {previewFile && (
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onClick={() => setPreviewFile(null)}>
+          <div className="relative max-w-6xl max-h-[90vh] w-full" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => setPreviewFile(null)}
+              className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
+            >
+              <X className="w-8 h-8" />
+            </button>
+            <div className="bg-white rounded-lg overflow-hidden">
+              <div className="bg-gray-100 px-4 py-3 border-b border-gray-200">
+                <h3 className="text-sm font-medium text-gray-900">{previewFile.name}</h3>
+              </div>
+              <div className="p-4 max-h-[80vh] overflow-auto">
+                {previewFile.type === 'image' ? (
+                  <img
+                    src={previewFile.previewUrl}
+                    alt={previewFile.name}
+                    className="w-full h-auto"
+                  />
+                ) : (
+                  <iframe
+                    src={previewFile.previewUrl}
+                    className="w-full h-[70vh]"
+                    title={previewFile.name}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-6 py-4">
         <div className="flex items-center justify-between mb-4">
@@ -236,13 +288,17 @@ export const FileUploadBypass = () => {
             {files.map((file) => (
               <div
                 key={file.id}
+                onClick={() => handleFileClick(file)}
                 className="group border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-300 transition-all cursor-pointer bg-white"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
                     {file.icon}
                   </div>
-                  <button className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-100 rounded transition-opacity">
+                  <button
+                    onClick={(e) => e.stopPropagation()}
+                    className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-100 rounded transition-opacity"
+                  >
                     <MoreVertical className="w-4 h-4 text-gray-600" />
                   </button>
                 </div>
@@ -261,6 +317,7 @@ export const FileUploadBypass = () => {
             {files.map((file) => (
               <div
                 key={file.id}
+                onClick={() => handleFileClick(file)}
                 className="group flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"
               >
                 <div className="p-2 bg-blue-50 rounded text-blue-600">
@@ -274,7 +331,10 @@ export const FileUploadBypass = () => {
                     {file.uploadedAt} • {file.size}
                   </p>
                 </div>
-                <button className="opacity-0 group-hover:opacity-100 p-2 hover:bg-gray-200 rounded transition-opacity">
+                <button
+                  onClick={(e) => e.stopPropagation()}
+                  className="opacity-0 group-hover:opacity-100 p-2 hover:bg-gray-200 rounded transition-opacity"
+                >
                   <MoreVertical className="w-4 h-4 text-gray-600" />
                 </button>
               </div>
@@ -293,6 +353,7 @@ export const FileUploadBypass = () => {
           <div className="bg-blue-600 h-2 rounded-full" style={{ width: '35%' }}></div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
