@@ -21,6 +21,7 @@ import { ApiRateLimit } from '../components/simulations/ApiRateLimit';
 import { SsrfChallenge } from '../components/simulations/SsrfChallenge';
 import { CouponStacking } from '../components/simulations/CouponStacking';
 import { RaceConditionPoints } from '../components/simulations/RaceConditionPoints';
+import { SessionFixation } from '../components/simulations/SessionFixation';
 
 export const ChallengeDetail = () => {
   const { user, profile, refreshProfile } = useAuth();
@@ -187,6 +188,8 @@ export const ChallengeDetail = () => {
         return <CouponStacking />;
       case 'race-condition-points':
         return <RaceConditionPoints />;
+      case 'session-fixation':
+        return <SessionFixation />;
       default:
         return null;
     }
