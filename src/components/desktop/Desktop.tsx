@@ -1,4 +1,4 @@
-import { Folder, Trophy, User, Shield } from 'lucide-react';
+import { Folder, Trophy, User, Shield, Target, Globe, TrendingUp, Award, Zap, Lock, Code, ChevronRight } from 'lucide-react';
 import { useWindows } from '../../contexts/WindowContext';
 import { Window } from './Window';
 import { Taskbar } from './Taskbar';
@@ -118,27 +118,112 @@ export const Desktop = () => {
             title: 'About NexusCipherGuard',
             icon: <Shield className="w-4 h-4" />,
             content: (
-              <div className="p-6">
-                <h2 className="text-2xl font-bold mb-4">NexusCipherGuard CTF Platform</h2>
-                <p className="mb-4">
-                  Welcome to NexusCipherGuard, a comprehensive Capture The Flag platform designed to help you
-                  master cybersecurity skills through hands-on challenges.
-                </p>
-                <div className="space-y-2">
-                  <h3 className="font-bold">Features:</h3>
-                  <ul className="list-disc list-inside space-y-1 text-gray-700">
-                    <li>Interactive security challenges</li>
-                    <li>Real-world vulnerability scenarios</li>
-                    <li>Global leaderboard rankings</li>
-                    <li>Progress tracking and achievements</li>
-                  </ul>
+              <div className="p-8 bg-gradient-to-br from-slate-50 to-blue-50 h-full overflow-auto">
+                <div className="max-w-2xl mx-auto">
+                  <div className="text-center mb-8">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl mb-4 shadow-lg">
+                      <Shield className="w-8 h-8 text-white" />
+                    </div>
+                    <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-3">
+                      NexusCipherGuard CTF
+                    </h2>
+                    <p className="text-gray-600 text-lg leading-relaxed">
+                      Master cybersecurity through immersive, hands-on challenges that simulate real-world scenarios
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200 cursor-pointer hover:-translate-y-1">
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <Target className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                            Interactive Challenges
+                            <ChevronRight className="w-4 h-4 text-blue-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
+                          </h3>
+                          <p className="text-sm text-gray-600 leading-relaxed">
+                            Engage with dynamic security simulations that test your skills in real-time
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-cyan-200 cursor-pointer hover:-translate-y-1">
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <Lock className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                            Real-World Scenarios
+                            <ChevronRight className="w-4 h-4 text-cyan-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
+                          </h3>
+                          <p className="text-sm text-gray-600 leading-relaxed">
+                            Practice on vulnerabilities found in actual production environments
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-green-200 cursor-pointer hover:-translate-y-1">
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <Globe className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                            Global Rankings
+                            <ChevronRight className="w-4 h-4 text-green-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
+                          </h3>
+                          <p className="text-sm text-gray-600 leading-relaxed">
+                            Compete with security enthusiasts worldwide on the leaderboard
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-200 cursor-pointer hover:-translate-y-1">
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <TrendingUp className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                            Track Progress
+                            <ChevronRight className="w-4 h-4 text-amber-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
+                          </h3>
+                          <p className="text-sm text-gray-600 leading-relaxed">
+                            Monitor your growth with detailed analytics and achievement badges
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl p-6 text-white shadow-lg">
+                    <div className="flex items-center gap-4">
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                          <Zap className="w-6 h-6" />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold mb-1">Ready to Start Your Journey?</h4>
+                        <p className="text-sm text-blue-100">
+                          Double-click the CTF Challenges icon to begin mastering cybersecurity!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ),
-            x: 250,
-            y: 150,
-            width: 500,
-            height: 400,
+            x: 200,
+            y: 100,
+            width: 700,
+            height: 550,
           });
         }}
         position={iconPositions.about}
