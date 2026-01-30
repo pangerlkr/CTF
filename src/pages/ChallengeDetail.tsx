@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Flag, Download, ExternalLink, CheckCircle, AlertCircle, Trophy } from 'lucide-react';
+import { Shield, Flag, Download, ExternalLink, CheckCircle, AlertCircle, Trophy } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, useLocation } from '../hooks/useNavigate';
 import { supabase, Challenge } from '../lib/supabase';
@@ -20,6 +20,7 @@ import { GraphqlIntrospection } from '../components/simulations/GraphqlIntrospec
 import { ApiRateLimit } from '../components/simulations/ApiRateLimit';
 import { SsrfChallenge } from '../components/simulations/SsrfChallenge';
 import { CouponStacking } from '../components/simulations/CouponStacking';
+import { RaceConditionPoints } from '../components/simulations/RaceConditionPoints';
 
 export const ChallengeDetail = () => {
   const { user, profile, refreshProfile } = useAuth();
@@ -184,6 +185,8 @@ export const ChallengeDetail = () => {
         return <SsrfChallenge />;
       case 'coupon-stacking':
         return <CouponStacking />;
+      case 'race-condition-points':
+        return <RaceConditionPoints />;
       default:
         return null;
     }
@@ -200,6 +203,7 @@ export const ChallengeDetail = () => {
               onClick={() => navigate('/dashboard')}
               className="flex items-center gap-3"
             >
+              <Shield className="w-8 h-8 text-cyan-400" />
               <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
                 NEXUSCIPHERGUARD
               </span>
