@@ -207,12 +207,6 @@ export const RaceConditionPoints = () => {
                 </button>
               ))}
             </div>
-
-            <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-              <p className="text-sm text-blue-400">
-                <strong>Tip:</strong> Try clicking the purchase button multiple times rapidly. The system processes requests asynchronously - can you find a way to duplicate your points?
-              </p>
-            </div>
           </div>
         )}
 
