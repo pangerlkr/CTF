@@ -30,7 +30,7 @@ const INITIAL_POSTS: Post[] = [
     id: 1,
     username: 'alice_wonder',
     avatar: '👩',
-    image: '🌄',
+    image: '/family.jpeg',
     likes: 234,
     caption: 'Beautiful sunrise this morning!',
     timestamp: '2h ago',
@@ -40,7 +40,7 @@ const INITIAL_POSTS: Post[] = [
     id: 2,
     username: 'bob_dev',
     avatar: '👨',
-    image: '💻',
+    image: '/summer-vacation.jpeg',
     likes: 156,
     caption: 'Coding session in progress',
     timestamp: '4h ago',
@@ -269,8 +269,12 @@ export const SessionFixation = () => {
               </button>
             </div>
 
-            <div className="bg-slate-100 aspect-square flex items-center justify-center text-8xl">
-              {post.image}
+            <div className="bg-slate-100 aspect-square">
+              <img
+                src={post.image}
+                alt={post.caption}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             <div className="px-4 py-3 space-y-3">
